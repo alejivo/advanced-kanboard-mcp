@@ -84,9 +84,14 @@ for record in sys.stdin.read().split("\x1e"):
             continue
         body_lines.append(stripped)
     if subject.startswith("Merge ") and body_lines:
-        items.append(body_lines[0])
+        chosen = body_lines[0]
     elif subject:
-        items.append(subject)
+        chosen = subject
+    else:
+        continue
+    if chosen.startswith("chore: release ") or "[release]" in chosen:
+        continue
+    items.append(chosen)
 print("\n".join(f"* {item}" for item in items))
 '
   )"
@@ -139,6 +144,71 @@ publish_release() {
   gh release create "$tag" "$zip" --title "$tag" --notes-file "$notes_file" --verify-tag
 }
 
+# Master rejects a direct push. Land the version bump as a pull request,
+# then check out the merged master commit before packaging.
+land_version_bump() {
+  local version="$1"
+  local target="$2"
+  local branch="chore/release-${target}"
+  local head_ref="${GITHUB_REPOSITORY%%/*}:${branch}"
+
+  if git ls-remote --exit-code origin "refs/heads/${branch}" >/dev/null; then
+    git fetch origin "${branch}"
+    git checkout -B "$branch" "origin/${branch}"
+    local on_branch
+    on_branch="$(read_version)"
+    if [[ "$on_branch" != "$target" ]]; then
+      echo "Branch ${branch} is at ${on_branch}, expected ${target}" >&2
+      exit 1
+    fi
+  else
+    git checkout -B "$branch" origin/master
+    write_version "$version" "$target"
+    git -c user.name='github-actions[bot]' \
+      -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+      add Plugin.php
+    git -c user.name='github-actions[bot]' \
+      -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+      -c commit.gpgsign=false \
+      commit -m "chore: release ${target} [release]"
+    git push origin "HEAD:refs/heads/${branch}"
+  fi
+
+  local pr
+  pr="$(gh pr list --base master --head "$head_ref" --state open --json number --jq '.[0].number // empty')"
+  if [[ -z "$pr" ]]; then
+    gh pr create --base master --head "$branch" \
+      --title "chore: release ${target}" \
+      --body "Version bump for the release created when changes landed on master."
+    pr="$(gh pr list --base master --head "$head_ref" --state open --json number --jq '.[0].number // empty')"
+  fi
+  if [[ -z "$pr" ]]; then
+    echo "Could not open a pull request for ${branch}" >&2
+    exit 1
+  fi
+
+  local attempt
+  for attempt in 1 2 3 4 5; do
+    if gh pr merge "$pr" --merge --delete-branch; then
+      break
+    fi
+    if [[ "$attempt" == "5" ]]; then
+      echo "Could not merge ${branch} into master." >&2
+      exit 1
+    fi
+    sleep 5
+  done
+
+  git fetch origin master --tags
+  git checkout -B master origin/master
+  local landed
+  landed="$(read_version)"
+  if [[ "$landed" != "$target" ]]; then
+    echo "master Plugin.php is ${landed} after merging ${branch}; expected ${target}" >&2
+    exit 1
+  fi
+}
+
 main() {
   if [[ "${GITHUB_ACTIONS:-}" != "true" && "${DRY_RUN:-}" != "1" ]]; then
     echo "Refusing to publish outside GitHub Actions. Set DRY_RUN=1 to preview." >&2
@@ -159,6 +229,17 @@ main() {
 
   latest="$(latest_release_tag)"
   latest_version="${latest#v}"
+
+  if [[ -n "$latest" && "$version" == "$latest_version" ]] \
+    && git merge-base --is-ancestor "$latest" HEAD \
+    && [[ "$(git rev-list --count "${latest}..HEAD")" == "0" ]]; then
+    if [[ "${DRY_RUN:-}" == "1" ]]; then
+      echo "v${version} already points at HEAD; would publish only if the GitHub release is missing"
+      exit 0
+    fi
+    publish_release "$version"
+    exit 0
+  fi
 
   local head_subject
   head_subject="$(git log -1 --pretty=%s)"
@@ -189,23 +270,16 @@ main() {
   echo "Release:    ${target}"
 
   if [[ "${DRY_RUN:-}" == "1" ]]; then
-    echo "DRY_RUN: not committing, tagging, or publishing"
+    if [[ "$target" != "$version" ]]; then
+      echo "DRY_RUN: would merge chore/release-${target} into master, then publish"
+    else
+      echo "DRY_RUN: would publish v${target} from master"
+    fi
     exit 0
   fi
 
   if [[ "$target" != "$version" ]]; then
-    write_version "$version" "$target"
-    git -c user.name='github-actions[bot]' \
-      -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
-      add Plugin.php
-    git -c user.name='github-actions[bot]' \
-      -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
-      -c commit.gpgsign=false \
-      commit -m "chore: release ${target} [release]"
-    if ! git push origin HEAD:master; then
-      echo "Could not push the release commit to master. GitHub Actions needs permission to push to that branch." >&2
-      exit 1
-    fi
+    land_version_bump "$version" "$target"
   fi
 
   publish_release "$target"

@@ -2,9 +2,11 @@ name: Release
 
 # Every push to master publishes a GitHub release whose asset is
 # ModelContextProtocol-<version>.zip. If Plugin.php is still the version
-# of the latest vX.Y.Z tag, the patch number is increased and committed
-# back to master. If the merged branch already raised Plugin.php above
-# that tag, that version is published as-is.
+# of the latest vX.Y.Z tag, the patch number is increased on
+# chore/release-<version> and merged to master through a pull request.
+# Direct pushes to master are rejected by the branch ruleset. If the
+# merged branch already raised Plugin.php above that tag, that version
+# is published as-is.
 
 on:
   push:
@@ -13,6 +15,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: release-master
