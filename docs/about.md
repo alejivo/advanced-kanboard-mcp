@@ -1,32 +1,30 @@
 ---
 title: About
 nav_order: 2
-description: Advanced Kanboard MCP is a fork of the original plugin, meant to iterate quickly and experiment with new features.
+description: A stable fork of the original Kanboard MCP. New features break compatibility with that plugin so this one can move freely and integrate with another plugin.
 ---
 
 # About
 
-Advanced Kanboard MCP is a fork of the [original Kanboard MCP](https://github.com/ChristianJStarr/kanboard-mcp) by Christian Starr. This fork exists to iterate quickly and experiment with new features.
+Advanced Kanboard MCP is a fork of the [original Kanboard MCP](https://github.com/ChristianJStarr/kanboard-mcp) by Christian Starr.
 
-The original plugin is the base: a Kanboard extension that lets an MCP client manage projects and tasks. This repository, [advanced-kanboard-mcp](https://github.com/alejivo/advanced-kanboard-mcp), is where those experiments land. Ideas can change from one release to the next while they are still being tried.
+This plugin is meant to stay stable for the people who use it. New features keep landing here, and those features break compatibility with the original MCP. The project was forked so development can move freely, and so this plugin can be integrated with another plugin, without staying compatible with the original.
 
-Releases from this fork still install as the Kanboard plugin `ModelContextProtocol`. Each archive is named `ModelContextProtocol-<version>.zip`.
+The original plugin remains the one maintained by its author. Use [ChristianJStarr/kanboard-mcp](https://github.com/ChristianJStarr/kanboard-mcp) when you need that plugin. Use this repository when you need the line that has already diverged from it.
 
-If you want the project maintained by its original author, use [ChristianJStarr/kanboard-mcp](https://github.com/ChristianJStarr/kanboard-mcp).
+Releases from this fork still install as the Kanboard plugin `ModelContextProtocol`. Each archive is named `ModelContextProtocol-<version>.zip`. A release of this fork is not a drop-in replacement for a release of the original plugin.
 
-## What this fork is experimenting with
-
-Work on this fork has focused on tighter, per-person access:
+## Where this fork has diverged
 
 - A token for each user, limited to the boards that user can already see.
 - Role checks on every call, using Kanboard's viewer, member, manager, and application roles.
 - An [endpoint gateway]({% link gateway.md %}) so each person turns tools on or off for their own token.
 - Header authentication, an admin switch to reject tokens in the query string, and narrower comment payloads.
 
-The [changelog]({% link changelog.md %}) records how those experiments arrived.
+The [changelog]({% link changelog.md %}) records how those changes arrived.
 
 ## Contributing
 
-Changes that try a new tool, tighten authorization, or fix a bug fit this repository. Open a pull request against [advanced-kanboard-mcp](https://github.com/alejivo/advanced-kanboard-mcp).
+New tools, tighter authorization, and bug fixes fit this repository. Open a pull request against [advanced-kanboard-mcp](https://github.com/alejivo/advanced-kanboard-mcp).
 
-Questions about the upstream plugin belong on the [original repository](https://github.com/ChristianJStarr/kanboard-mcp).
+Questions about the original plugin belong on [ChristianJStarr/kanboard-mcp](https://github.com/ChristianJStarr/kanboard-mcp).

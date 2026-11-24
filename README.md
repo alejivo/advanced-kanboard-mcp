@@ -5,7 +5,7 @@
 
 Kanboard plugin that lets MCP clients such as Cursor and Claude work with the boards a user can already see.
 
-**Advanced Kanboard MCP** is a fork of the [original Kanboard MCP](https://github.com/ChristianJStarr/kanboard-mcp). It exists to iterate quickly and experiment with new features. The [About](docs/about.md) page explains the relationship to the original plugin.
+**Advanced Kanboard MCP** is a fork of the [original Kanboard MCP](https://github.com/ChristianJStarr/kanboard-mcp). The plugin stays stable for its users, and new features break compatibility with the original MCP so this project can move freely and integrate with another plugin. The [About](docs/about.md) page explains why.
 
 Each release attaches a Kanboard plugin archive named `ModelContextProtocol-<version>.zip`.
 
