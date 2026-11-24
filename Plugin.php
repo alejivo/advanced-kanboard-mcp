@@ -123,7 +123,7 @@ class Plugin extends Base
 
     public function getPluginHomepage()
     {
-        return 'https://github.com/ChristianJStarr/kanboard-mcp';
+        return 'https://github.com/alejivo/advanced-kanboard-mcp';
     }
 
     public function getCompatibleVersion()

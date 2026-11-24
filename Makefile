@@ -1,7 +1,10 @@
 COMPOSE := docker compose
 export KANBOARD_ROOT ?= $(abspath ../kanboard-src)
 
-.PHONY: run down logs ps test-mysql
+VERSION := $(shell sed -n "/function getPluginVersion/,/^    }/s/.*return '\\([^']*\\)'.*/\\1/p" Plugin.php)
+DIST := ModelContextProtocol-$(VERSION).zip
+
+.PHONY: run down logs ps test-mysql package
 
 run:
 	@ $(COMPOSE) up -d --force-recreate --wait
@@ -14,6 +17,10 @@ logs:
 
 ps:
 	@ $(COMPOSE) ps
+
+package:
+	git archive --format=zip --prefix=ModelContextProtocol/ -o $(DIST) HEAD \
+		Controller Core Locale Model Plugin.php Schema Template
 
 test-mysql:
 	@ $(COMPOSE) up -d mysql --wait

@@ -6,6 +6,8 @@
 
 **The most comprehensive Kanboard.org integration for AI assistants and automation tools.**
 
+This repository is [advanced-kanboard-mcp](https://github.com/alejivo/advanced-kanboard-mcp). Each release attaches a Kanboard plugin archive named `ModelContextProtocol-<version>.zip`.
+
 Transform your Kanboard into an AI-powered project management powerhouse! This plugin enables complete control over Kanboard through the Model Context Protocol (MCP), allowing AI assistants like Cursor, Claude, and other MCP clients to manage your projects through natural language commands.
 
 ## Features
@@ -71,7 +73,7 @@ Transform your Kanboard into an AI-powered project management powerhouse! This p
 
 ### Installation
 
-1. **Download & Extract**: Copy the `ModelContextProtocol` folder to your Kanboard `plugins/` directory.
+1. **Download & Extract**: Download `ModelContextProtocol-<version>.zip` from [Releases](https://github.com/alejivo/advanced-kanboard-mcp/releases). The archive contains a `ModelContextProtocol` directory. Extract that directory into your Kanboard `plugins/` folder.
 2. **Activate Plugin**: Access Kanboard as administrator → **Settings** → **Plugins** → Enable MCP Plugin.
 3. **Get your token**: Go to **Settings** → **Integrations** (admins) **or** your user profile → **Integrations** (all users). Click **Autogenerar** (or **Generate Token** on first use).
 4. **Copy the MCP configuration**: The token is shown **once**. Copy the **Authorization header** client block (server URL **without** a token, plus `headers.Authorization: Bearer …`). A URL that embeds `&token=` is also shown for older clients; prefer the header.
@@ -254,7 +256,7 @@ We welcome contributions! Please read our contributing guidelines and submit pul
 ## Support
 
 - **Documentation**: Comprehensive examples in this README
-- **Issues**: [GitHub Issues](https://github.com/ChristianJStarr/kanboard-mcp/issues)
+- **Issues**: [GitHub Issues](https://github.com/alejivo/advanced-kanboard-mcp/issues)
 - **Community**: [Kanboard Community](https://kanboard.org/community)
 
 ## License
