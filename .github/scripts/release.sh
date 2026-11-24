@@ -209,6 +209,15 @@ land_version_bump() {
   fi
 }
 
+# The zip is built from these paths. A push that leaves them untouched,
+# such as a documentation merge, does not get a release.
+plugin_archive_changed() {
+  local base="$1"
+  git diff --name-only "$base" HEAD -- \
+    Controller Core Locale Model Plugin.php Schema Template \
+    | grep -q .
+}
+
 main() {
   if [[ "${GITHUB_ACTIONS:-}" != "true" && "${DRY_RUN:-}" != "1" ]]; then
     echo "Refusing to publish outside GitHub Actions. Set DRY_RUN=1 to preview." >&2
@@ -218,6 +227,14 @@ main() {
   git fetch origin master --tags --force
   if [[ "${DRY_RUN:-}" != "1" ]]; then
     git checkout -B master origin/master
+  fi
+
+  local before="${GITHUB_EVENT_BEFORE:-}"
+  if [[ -n "$before" && "$before" != "0000000000000000000000000000000000000000" ]] \
+    && git cat-file -e "${before}^{commit}" 2>/dev/null \
+    && ! plugin_archive_changed "$before"; then
+    echo "This push does not change the plugin archive; not publishing a release"
+    exit 0
   fi
 
   local version latest latest_version target
