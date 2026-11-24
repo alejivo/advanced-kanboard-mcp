@@ -1,14 +1,14 @@
 ---
 title: About
 nav_order: 2
-description: Advanced Kanboard MCP is a fork of the original plugin, meant to iterate quickly and experiment with new features.
+description: Advanced Kanboard MCP is a fork of the original plugin, meant to iterate quickly with new features that may broken the original MCP.
 ---
 
 # About
 
 Advanced Kanboard MCP is a fork of the [original Kanboard MCP](https://github.com/ChristianJStarr/kanboard-mcp) by Christian Starr. This fork exists to iterate quickly and experiment with new features.
 
-The original plugin is the base: a Kanboard extension that lets an MCP client manage projects and tasks. This repository, [advanced-kanboard-mcp](https://github.com/alejivo/advanced-kanboard-mcp), is where those experiments land. Ideas can change from one release to the next while they are still being tried.
+The original plugin is the base: a Kanboard extension that lets an MCP client manage projects and tasks. This repository, [advanced-kanboard-mcp](https://github.com/alejivo/advanced-kanboard-mcp), is where fast iterations lands. This plugin its stable too but not 100% compatible with the original.
 
 Releases from this fork still install as the Kanboard plugin `ModelContextProtocol`. Each archive is named `ModelContextProtocol-<version>.zip`.
 
