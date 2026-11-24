@@ -15,3 +15,11 @@ description: Install the plugin from a release archive and generate a personal M
 Each user generates their own token. An administrator looking at another user's profile does not see that user's token.
 
 The next step is [connecting a client]({% link clients.md %}). After the client connects, use the [endpoint gateway]({% link gateway.md %}) to choose which tools that token may call.
+
+## Watch the integrations page
+
+<video class="docs-video" controls playsinline preload="metadata">
+  <source src="{{ '/assets/videos/interface.webm' | relative_url }}" type="video/webm">
+</video>
+
+The same recording is on the [videos]({% link videos.md %}) page, with the token and gateway walkthroughs.
