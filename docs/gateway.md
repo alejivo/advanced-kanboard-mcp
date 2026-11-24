@@ -8,6 +8,12 @@ description: Each user turns on the MCP endpoints their role allows.
 
 Authentication identifies the user. The gateway chooses which role-allowed endpoints are on for that user's own token.
 
+<video class="docs-video" controls playsinline preload="metadata">
+  <source src="{{ '/assets/videos/gateway.webm' | relative_url }}" type="video/webm">
+</video>
+
+An administrator saves the endpoints on their own token. A project viewer then sees only the endpoints that role is allowed to use.
+
 The integrations page has a second form, separate from **Autogenerar** and from Kanboard's own settings form. It lists only the endpoints the signed-in user is allowed to use. Saving stores `enabled=1` or `enabled=0` for each of those endpoints. Rows are never deleted, and regenerating a token does not remove them.
 
 {: .note }

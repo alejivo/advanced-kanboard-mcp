@@ -11,8 +11,6 @@ color_scheme: kanboard
 aux_links:
   Repository:
     - https://github.com/alejivo/advanced-kanboard-mcp
-  Original MCP:
-    - https://github.com/ChristianJStarr/kanboard-mcp
 aux_links_new_tab: true
 
 nav_enabled: true

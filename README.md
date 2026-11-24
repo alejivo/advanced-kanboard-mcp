@@ -23,6 +23,7 @@ The guide is published at <https://alejivo.github.io/advanced-kanboard-mcp/>.
 | [Endpoint gateway](docs/gateway.md) | Per-user tool toggles |
 | [Specifications](docs/specifications.md) | Versions and the HTTP endpoint |
 | [Changelog](docs/changelog.md) | What each release changed |
+| [Videos](docs/videos.md) | Integrations, tokens, and the endpoint gateway |
 
 ## Install
 

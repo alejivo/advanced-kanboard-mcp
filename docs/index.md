@@ -17,6 +17,8 @@ It is a fork of the original Kanboard MCP. The plugin stays stable for its users
 3. Turn on the tools you want in the [endpoint gateway]({% link gateway.md %}).
 4. Ask the client to use the [tools]({% link tools/index.md %}).
 
+The [videos]({% link videos.md %}) show the integrations page, a second user's token, and the endpoint gateway.
+
 ## What you can do
 
 - Each Kanboard user has their own MCP token, limited to their own boards.

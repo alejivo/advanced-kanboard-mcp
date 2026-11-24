@@ -16,6 +16,12 @@ Authentication identifies the user. The [endpoint gateway]({% link gateway.md %}
 - Clicking **Autogenerar** invalidates the old token and issues a new one.
 - When a user account is deactivated in Kanboard, their token stops working immediately.
 
+<video class="docs-video" controls playsinline preload="metadata">
+  <source src="{{ '/assets/videos/tokens.webm' | relative_url }}" type="video/webm">
+</video>
+
+An administrator generates a token and disables URL tokens. A second user then generates a different token, and the administrator's token stays the same.
+
 ## What each role can do
 
 Every tool call is checked against the token user's Kanboard permissions.
