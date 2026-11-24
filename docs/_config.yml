@@ -1,5 +1,5 @@
 title: Advanced Kanboard MCP
-description: A stable fork of the Kanboard MCP plugin. New features break compatibility with the original MCP.
+description: An MCP that connects autonomous agents to specific Kanboard boards, with granular access.
 theme: just-the-docs
 
 url: https://alejivo.github.io
@@ -31,9 +31,7 @@ back_to_top: true
 back_to_top_text: "Back to top"
 
 footer_content: >-
-  Advanced Kanboard MCP is a fork of the
-  <a href="https://github.com/ChristianJStarr/kanboard-mcp">original Kanboard MCP</a>
-  by Christian Starr.
+  Advanced Kanboard MCP connects autonomous agents to specific Kanboard boards.
 
 gh_edit_link: true
 gh_edit_link_text: "Edit this page on GitHub"

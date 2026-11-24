@@ -8,7 +8,7 @@ description: Kanboard plugin that lets MCP clients manage the boards a user can 
 
 Advanced Kanboard MCP is a Kanboard plugin. It speaks the [Model Context Protocol](https://modelcontextprotocol.io/) so clients such as Cursor and Claude can work with the projects, tasks, and boards that the signed-in user is allowed to see.
 
-It is a fork of the original Kanboard MCP. The plugin stays stable for its users, and new features break compatibility with the original MCP so this project can move freely and integrate with another plugin. The [About]({% link about.md %}) page explains that.
+It connects autonomous agents to Kanboard and gives each one granular access to specific boards. Another plugin will interact with this one. The [About]({% link about.md %}) page explains that.
 
 ## Start here
 
