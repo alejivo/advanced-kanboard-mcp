@@ -1,5 +1,5 @@
 title: Advanced Kanboard MCP
-description: A fork of the Kanboard MCP plugin for fast iteration and new experiments.
+description: A stable fork of the Kanboard MCP plugin. New features break compatibility with the original MCP.
 theme: just-the-docs
 
 url: https://alejivo.github.io
